@@ -4,8 +4,10 @@
 
 using namespace std;
 
+int count_words(string str);
 int count_letters(string str);
 int convert(char letter);
+int convert_two(char space);
 
 int main() {
     string input;
@@ -17,9 +19,27 @@ int main() {
         getline(cin, input);
         if (input == "Q") break;
 
-        cout << "(" << count_letters(input) << ")" << endl;;
+        cout << "Word count: " << count_words(input) << endl;
+        cout << "Letter count: " << count_letters(input) << endl;
         cout << endl;
     }
+}
+
+int count_words(string str) {
+    if (str.empty()) return 0;
+
+    int length_of_string = static_cast<int>(str.length());
+
+    int sum = convert_two(str[length_of_string]);
+
+    for (int i = length_of_string - 1; i >= 0; --i) {
+
+        if (convert_two(str[i] - 2) < convert_two(str[i + 1]))
+            sum -= convert_two(str[i]);
+        else
+            sum += convert_two(str[i]);
+    }
+    return sum + 1;
 }
 
 int count_letters(string str) {
@@ -37,8 +57,8 @@ int count_letters(string str) {
             sum += convert(str[i]);
     }
     return sum;
-
 }
+
 int convert(char letter) {
     switch (letter) {
     case 'A':
@@ -145,6 +165,35 @@ int convert(char letter) {
         return 1;
     case 'z':
         return 1;
+    default:
+        return 0;
+    }
+}
+
+int convert_two(char space) {
+    switch (space) {
+    case ' ':
+        return 1;
+    case '0':
+        return -1;
+    case '1':
+        return -1;
+    case '2':
+        return -1;
+    case '3':
+        return -1;
+    case '4':
+        return -1;
+    case '5':
+        return -1;
+    case '6':
+        return -1;
+    case '7':
+        return -1;
+    case '8':
+        return -1;
+    case '9':
+        return -1;
     default:
         return 0;
     }
